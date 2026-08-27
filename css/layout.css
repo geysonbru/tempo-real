@@ -1,0 +1,57 @@
+/*=========================================================
+Layout geral
+=========================================================*/
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height:100%;
+    overflow:hidden; /*overflow:hidden é o responsável por impedir a barra de rolagem da página*/
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--texto);
+}
+
+.pagina {
+    height:100vh; /*ocupar toda a tela, sem rolagem*/
+    min-height:0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: 12px;
+}
+
+.conteudo {
+    flex:1;
+    display: flex;
+    gap: var(--gap);
+    min-height:0;
+    align-items:stretch;
+}
+
+.painel {
+    min-height:0;
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+.titulo {
+    background: var(--azul);
+    color: white;
+    padding: 8px 10px;
+    font-weight: bold;
+    border-radius: var(--raio) var(--raio) 0 0;
+}
+
+.tabela{
+    flex:0 0 auto;
+    width:max-content;
+
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}

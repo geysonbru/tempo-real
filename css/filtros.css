@@ -1,0 +1,27 @@
+/*=========================================================
+Filtros
+=========================================================*/
+.filtro{
+    flex:0 0 auto;
+    width:max-content;
+    align-self:flex-start;
+
+    display:flex;
+    flex-direction:column;
+
+    width:fit-content;
+    min-width:fit-content;
+
+    text-align: center;
+}
+
+#filtroAgencias{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    font-size: 12px;
+}

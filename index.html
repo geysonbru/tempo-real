@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+	<head>
+		<link rel="icon" type="image/png" href="img/logo.png">
+		<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Dados em Tempo Real</title>
+		<link rel="stylesheet" href="css/estilo.css">
+		<script src="https://cdn.plot.ly/plotly-3.1.2.min.js"></script>
+	</head>
+
+	<body>
+		<div class="pagina">
+
+			<!-- -------------------------------------------------------
+				                     CABEÇALHO
+			----------------------------------------------------------->
+			<header class="cabecalho">
+				<div class="logo"><img src="img/logo.png" alt="Logo Celesc"></div>
+				<h1>Dados em Tempo Real</h1>
+
+				<div class="informacoes-topo">
+					<div class="info-topo">
+						<div id="dtProcessamento">--</div>
+						<small>Último Dado</small>
+					</div>
+
+					<div class="info-topo">
+						<div id="dtAtualizacaoPagina">--</div>
+						<small>Atualização da Página</small>
+					</div>
+
+					<div class="info-topo">
+						<div id="relogioAtual">--:--:--</div>
+						<small>Hora Atual</small>
+					</div>
+				</div>
+
+			</header>
+
+			<!-- -------------------------------------------------------
+				                      KPIs
+			----------------------------------------------------------->
+			<section class="kpis">
+				<div class="card"><h3>CHI Emerg. (Gráfico)</h3><span id="kpiChiEmerg">-</span></div>
+				<div class="card"><h3>CHI (Emerg. + Possível) (Gráfico)</h3><span id="kpiChiTotal">-</span></div>
+				<div class="card"><h3>Qtde UCs (Filtro)</h3><span id="kpiQtUc">-</span></div>
+				<div class="card"><h3>UCs CELESC Faturáveis</h3><span id="kpiQtUcCelesc">-</span></div>
+				<div class="card"><h3>Sem Energia agora</h3><span id="kpiTotalSemEnergia">-</span></div>
+				<div class="card"><h3>DEC Hoje</h3><div id="kpiGaugeDecHoje"></div></div>
+				<div class="card"><h3>Últimas Horas</h3><input id="inputHoras" type="number" min="1" max="168" value="27"></div>
+			</section>
+			
+			<main class="conteudo">
+
+				<!-- -------------------------------------------------------
+				                          Tabela
+				----------------------------------------------------------->
+				<section class="painel tabela">
+					<div class="titulo"  id="tituloTabela">Tabela</div>
+					<div class="tabela-scroll">
+						<table id="tabelaAgencias">
+							<thead>
+								<tr>
+									<th>Agência</th>
+									<th>Acidental</th>
+									<th>Prog.</th>
+									<th>Possível</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+
+							<tbody id="tbodyAgencias", data-tabela="principal">
+
+							</tbody>
+
+						</table>
+					</div>
+				</section>
+
+				<!-- -------------------------------------------------------
+				                          Gráfico
+				----------------------------------------------------------->
+				<section class="painel grafico">
+					
+					<div class="titulo">
+						Unidades Consumidoras Sem Energia
+					</div>
+					
+					<div id="grafico"></div>
+
+					<div id="tooltipGrafico"></div>
+					
+				</section>
+
+				<!-- -------------------------------------------------------
+				                    Filtro Agências
+				----------------------------------------------------------->
+				<aside class="painel filtro">
+					<div class="titulo">
+						Agências
+					</div>
+					
+					<div id="filtroAgencias">
+					</div>
+				</aside>
+				<!-- ------------------------------------------------------->
+			</main>
+			
+		</div>
+
+		<!-- Scripts ------------------------------------------------------->
+		<script src="js/utils.js"></script>
+		<script src="js/api.js"></script>
+		<script src="js/cabecalho.js"></script>
+		<script src="js/tabela.js"></script>
+		<script src="js/kpis.js"></script>
+		<script src="js/filtros.js"></script>
+		<script src="js/grafico.js"></script>
+		<script src="js/main.js"></script>
+		<!------------------------------------------------------------------>
+		<div id="mensagemSistema" class="mensagem-sistema"></div>
+		
+	</body>
+</html>

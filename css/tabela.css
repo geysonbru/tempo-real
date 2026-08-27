@@ -1,0 +1,67 @@
+/*=========================================================
+Tabela
+=========================================================*/
+#tabelaAgencias {
+    border-collapse: collapse;
+}
+
+#tabelaAgencias th,
+#tabelaAgencias td {
+    padding:3px 6px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/*Agência cresce conforme o texto*/
+#tabelaAgencias th:first-child,
+#tabelaAgencias td:first-child {
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Colunas numéricas */
+#tabelaAgencias th:nth-child(n+2),
+#tabelaAgencias td:nth-child(n+2) {
+    width: 55px;      /* ajuste para 80, 90, 100... */
+    text-align: right;
+}
+
+/*Aplicar negrito na linha de TOTAL*/
+.linha-total {
+    font-weight: bold;
+    background-color: #eef5fb;
+    border-top: 2px solid var(--azul);
+}
+
+.tabela {
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.tabela table {
+    width:100%;
+}
+
+#tabelaAgencias {
+    width:auto;
+    white-space:nowrap;
+    font-size: clamp(12px, 0.75vw, 14px);
+}
+
+#tabelaAgencias tbody {
+    overflow-y:auto;
+}
+
+.tabela-scroll {
+    flex:1;
+    overflow-y:auto;
+}
+
+#tabelaAgencias thead th{
+    font-size: clamp(12px, 0.8vw, 14px);
+}
+
+#tabelaAgencias tbody td{
+    font-size: clamp(12px, 0.75vw, 13px);
+}

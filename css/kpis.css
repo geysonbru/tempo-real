@@ -1,0 +1,42 @@
+/*=========================================================
+KPIs
+=========================================================*/
+.kpis {
+    display:flex;
+    gap:var(--gap);
+}
+
+.card {
+    flex: 1;
+    padding:3px 5px;
+    background: white;
+    border: 1px solid black; /*var(--borda);*/
+    border-radius: var(--raio);
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+.card h3 {
+    margin: 0 0 4px 0;
+    font-size:16px;
+}
+
+.card span {
+    display: block;
+    text-align: right;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--azul);
+}
+
+#inputHoras{
+    display: block;
+    margin-left: auto;  /* Empurra o elemento para o canto direito */
+    width: 60px;        /* Aumentei um pouco em relação aos seus 20px, para caber as setinhas do input */
+    text-align: center; /* Centraliza o número dentro do input */
+    font-size: 18px;
+    padding: 3px;
+}
+
+#gaugeDec {
+    height: 50px;
+}

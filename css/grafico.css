@@ -1,0 +1,32 @@
+/*=========================================================
+Gráfico
+=========================================================*/
+.grafico {
+    flex: 6;
+    min-width:0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#grafico {
+    flex: 1;
+}
+
+/*=========================================================
+Tooltip do gráfico
+=========================================================*/
+
+#tooltipGrafico{
+    position:absolute;
+    display:none;
+    pointer-events:none;
+    background:white;
+    border:11px solid #888;
+    border-radius:6px;
+    box-shadow:0 3px 8px rgba(0,0,0,.25);
+    padding:10px;
+    font-size:13px;
+    z-index:1000;
+    min-width:220px;
+}
