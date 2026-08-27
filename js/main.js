@@ -7,7 +7,7 @@ Responsável por:
 ========================================================*/
 
 /*--------------------------------------------------------------------------------------------------------------------*/
-/*Vaiáveis Globais*/
+/*Variáveis Globais*/
 let dadosDashboard = null;
 let graficoFiltrado = [];
 let horasFiltro = 27; //abrir site com valor padrão para o gráfico
@@ -27,12 +27,30 @@ async function iniciarDashboard() {
         atualizarFiltros(dadosDashboard.filtros.agencias);
         configurarFiltroHoras();
         atualizarDashboard(); //atualiza a tela pela primeira vez
-        setInterval(buscarNovosDados,60000);
-        }
-
-    catch (erro) {
-        console.error(erro);
+        setInterval(buscarNovosDados, 60000);
     }
+    catch (erro) {
+        console.error("Erro na inicialização do Dashboard:", erro);
+    }
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Função para carregar e descompactar o arquivo .json.gz */
+async function carregarDados() {
+    // Adiciona timestamp para impedir que o navegador salve o JSON em cache
+    const url = 'dados/dados.json.gz?t=' + new Date().getTime();
+
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Erro ao buscar dados do GitHub. Status: ${response.status}`);
+    }
+
+    // Descompacta o fluxo GZIP em memória
+    const ds = new DecompressionStream('gzip');
+    const decompressedStream = response.body.pipeThrough(ds);
+    const jsonText = await new Response(decompressedStream).text();
+
+    return JSON.parse(jsonText);
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -42,10 +60,7 @@ async function buscarNovosDados() {
     atualizando = true;
 
     try {
-        // As linhas obterAgenciasSelecionadas() e restaurarFiltros()
-        // foram removidas. O HTML dos filtros não será mais tocado!
-
-        dadosDashboard = await carregarDados(); // Puxa dados frescos
+        dadosDashboard = await carregarDados(); // Puxa dados frescos e descompacta
         atualizarCabecalho(dadosDashboard);
 
         // Após baixar os novos dados, manda atualizar os gráficos/tabelas
@@ -134,7 +149,6 @@ function montarTabela(linhas, horario = null){
     return tabela;
 }
 
-
 /*--------------------------------------------------------------------------------------------------------------------*/
 function configurarFiltroHoras(){
 
@@ -158,4 +172,3 @@ function configurarFiltroHoras(){
     input.addEventListener("change", atualizar);
 
 }
-
