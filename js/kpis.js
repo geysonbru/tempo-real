@@ -32,7 +32,9 @@ function calcularKPIs(linhas, dadosCelesc){
         chiTotal: calcularChiTotal(linhas),
 
         totalSemEnergia: calcularTotalSemEnergia(linhas, ultimoHorario),
-        decHoje: dadosCelesc?.decHoje ?? 0
+
+        // Calcula o DEC acumulado desde 00:00 do dia atual
+        decHoje: calcularDecHoje(linhas, dadosCelesc)
     };
 }
 
@@ -50,6 +52,7 @@ function calcularChiEmerg(linhas){
 
     return ucSemEnergia / AMOSTRAS_POR_HORA;
 }
+
 
 /*========================================================
 CHI Total
@@ -79,6 +82,7 @@ function calcularTotalSemEnergia(linhas, ultimoHorario = null){
             .reduce((total, linha) => total + (linha.QT_TOTAL || 0), 0);
 }
 
+
 /*========================================================
 Quantidade de UCs (Filtro)
 ========================================================*/
@@ -103,6 +107,78 @@ function calcularQtUc(linhas, ultimoHorario = null) {
             return total;
         }, 0);
     }
+}
+
+
+/*========================================================
+DEC Hoje
+
+Calcula o DEC acumulado desde 00:00 do dia atual.
+
+Fórmula:
+
+    DEC Hoje =
+        soma das UCs sem energia
+        ------------------------
+        30 x Qtde UCs
+
+UCs sem energia =
+    QT_UC_SENERGIA_ACIDENTAL
+  + QT_UC_SENERGIA_PROGRAMADA
+  + QT_UC_SENERGIA_POSSIVEL
+
+Considera todos os registros a partir de 00:00
+do dia atual.
+========================================================*/
+function calcularDecHoje(linhas, dadosCelesc){
+
+    if (!linhas || linhas.length === 0) {
+        return 0;
+    }
+
+    // ----------------------------------------------------
+    // Início do dia atual: 00:00:00
+    // ----------------------------------------------------
+    const inicioHoje = new Date();
+    inicioHoje.setHours(0, 0, 0, 0);
+
+    // ----------------------------------------------------
+    // Soma todas as UCs sem energia desde 00:00
+    // ----------------------------------------------------
+    const total = linhas
+        .filter(linha => {
+
+            const data = new Date(
+                linha.DT_PROCESSAMENTO.replace(" ", "T")
+            );
+
+            return data >= inicioHoje;
+
+        })
+        .reduce((soma, linha) => {
+
+            return soma
+                + Number(linha.QT_UC_SENERGIA_ACIDENTAL || 0)
+                + Number(linha.QT_UC_SENERGIA_PROGRAMADA || 0)
+                + Number(linha.QT_UC_SENERGIA_POSSIVEL || 0);
+
+        }, 0);
+
+    // ----------------------------------------------------
+    // Qtde UCs vem do JSON
+    // ----------------------------------------------------
+    const qtUc = Number(
+        dadosCelesc?.qtUc ?? 0
+    );
+
+    if (qtUc <= 0) {
+        return 0;
+    }
+
+    // ----------------------------------------------------
+    // DEC Hoje
+    // ----------------------------------------------------
+    return total / (30 * qtUc);
 }
 
 
