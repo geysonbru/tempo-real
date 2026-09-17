@@ -203,6 +203,6 @@ function renderizarKPIs(kpi){
         formatarNumero(kpi.qtUcCelesc);
 
     document.getElementById("kpiGaugeDecHoje").textContent =
-        formatarDecimal(kpi.decHoje);
+        formatarDecimal(kpi.decHoje, 4);
 
 }
